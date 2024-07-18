@@ -6,3 +6,4 @@ resources:
   - ./metallb/pool.yaml
   - ./longhorn/traefik-config.yaml
   - ./pihole/traefik-config.yaml
+  - ./homer/traefik-config.yaml
