@@ -4,3 +4,5 @@ commonLabels:
   app.kubernetes.io/managed-by: Kustomize
 resources:
   - ./metallb/pool.yaml
+  - ./longhorn/traefik-config.yaml
+  - ./pihole/traefik-config.yaml

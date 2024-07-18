@@ -1,0 +1,43 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pihole-ingressroute
+  namespace: pihole-system
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: PathPrefix(`/pihole`)
+      kind: Rule
+      middlewares:
+        - name: pihole-rewrite
+      services:
+        - name: pihole-web
+          port: 443
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pihole-web-ingressroute
+  namespace: pihole-system
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: PathPrefix(`/pihole`)
+      kind: Rule
+      middlewares:
+        - name: pihole-rewrite
+      services:
+        - name: pihole-web
+          port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: pihole-rewrite
+  namespace: pihole-system
+spec:
+  stripPrefix:
+    prefixes:
+      - /pihole

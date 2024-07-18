@@ -5,10 +5,17 @@ repositories:
     url: https://metallb.github.io/metallb
   - name: mojo2600
     url: https://mojo2600.github.io/pihole-kubernetes/
-  - name: ingress-nginx
-    url: https://kubernetes.github.io/ingress-nginx
+  - name: traefik
+    url: https://traefik.github.io/charts
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
+  - name: tailscale
+    url: https://pkgs.tailscale.com/helmcharts
+  - name: immich
+    url: https://immich-app.github.io/immich-charts
+  - name: djjudas21
+    url: https://djjudas21.github.io/charts/
+
 ---
 releases:
   # Distributed storage
@@ -32,17 +39,42 @@ releases:
       - ./values/pihole.values.yaml
 
   # Ingress for local network
-  - name: ingress-nginx-internal
-    namespace: nginx-system
-    chart: ingress-nginx/ingress-nginx
-    version: 4.10.1
+  - name: traefik
+    namespace: traefik
+    chart: traefik/traefik
+    version: 29.0.1
     values:
-      - ./values/nginx-internal.values.yaml
+      - ./values/traefik.values.yaml
+  
+  # Tailscale - remote access
+  - name: tailscale
+    namespace: tailscale-system
+    chart: tailscale/tailscale-operator
+    version: 1.68.1
+    values:
+      - ./values/tailscale.values.yaml
+  
+  # ValKey - Redis alt
+  - name: valkey
+    namespace: valkey
+    chart: bitnami/valkey
+    version: 0.3.8
+    values:
+      - ./values/valkey.values.yaml
+  
+  # PostgresQL - DB
+  - name: postgresql
+    namespace: postgresql
+    chart: bitnami/postgresql
+    version: 15.5.17
+    values:
+      - ./values/postgresql.values.yaml
 
-  # Automatic DNS for pihole
-  - name: externaldns-pihole
-    namespace: pihole-system
-    chart: bitnami/external-dns
-    version: 8.0.1
+  # Homer - homepage for all services
+  - name: homer
+    namespace: homer
+    chart: djjudas21/homer
+    version: 8.1.12
     values:
-      - ./values/externaldns.values.yaml
+      - ./values/homer.values.yaml
+

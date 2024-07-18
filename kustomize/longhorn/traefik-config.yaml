@@ -1,0 +1,26 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: longhorn-ingressroute
+  namespace: longhorn-system
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: PathPrefix(`/longhorn`)
+      kind: Rule
+      middlewares:
+        - name: longhorn-rewrite
+      services:
+        - name: longhorn-frontend
+          port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: longhorn-rewrite
+  namespace: longhorn-system
+spec:
+  stripPrefix:
+    prefixes:
+      - /longhorn
