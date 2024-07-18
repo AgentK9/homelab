@@ -1,3 +1,7 @@
+service:
+  annotations:
+    tailscale.com/expose: "true"
+
 ingressRoute:
   dashboard:
     enabled: true

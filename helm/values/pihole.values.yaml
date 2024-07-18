@@ -12,5 +12,6 @@ serviceDns:
   loadBalancerIP: 192.168.50.100
   annotations:
     metallb.universe.tf/allow-shared-ip: pihole-svc
+    tailscale.com/expose: "true"
   type: LoadBalancer
 replicaCount: 1

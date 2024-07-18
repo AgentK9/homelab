@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: PathPrefix(`/`)
+    - match: Host(`kgb.birtdata.com`) && PathPrefix(`/`)
       kind: Rule
       services:
         - name: homer
