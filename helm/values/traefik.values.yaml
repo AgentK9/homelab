@@ -29,3 +29,17 @@ extraObjects:
     spec:
       basicAuth:
         secret: traefik-dashboard-auth-secret
+
+ports:
+  dns-tcp:
+    port: 53
+    protocol: TCP
+    exposedPort: 53
+    expose:
+      default: true
+  dns-udp:
+    port: 53
+    protocol: UDP
+    exposedPort: 53
+    expose:
+      default: true

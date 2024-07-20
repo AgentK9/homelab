@@ -15,6 +15,8 @@ repositories:
     url: https://immich-app.github.io/immich-charts
   - name: djjudas21
     url: https://djjudas21.github.io/charts/
+  - name: minio
+    url: https://operator.min.io
 
 ---
 releases:
@@ -53,22 +55,6 @@ releases:
     version: 1.68.1
     values:
       - ./values/tailscale.values.yaml
-  
-  # ValKey - Redis alt
-  - name: valkey
-    namespace: valkey
-    chart: bitnami/valkey
-    version: 0.3.8
-    values:
-      - ./values/valkey.values.yaml
-  
-  # PostgresQL - DB
-  - name: postgresql
-    namespace: postgresql
-    chart: bitnami/postgresql
-    version: 15.5.17
-    values:
-      - ./values/postgresql.values.yaml
 
   # Homer - homepage for all services
   - name: homer
@@ -78,3 +64,31 @@ releases:
     values:
       - ./values/homer.values.yaml
 
+  # Immich - Photo/Video
+  - name: immich
+    namespace: immich
+    chart: immich/immich
+    version: 0.7.0
+    values:
+      - ./values/immich.values.yaml
+  
+  # Paperless - Document DB
+  - name: paperless
+    namespace: paperless
+    chart: oci://ghcr.io/gabe565/charts/paperless-ngx
+    version: 0.18.1
+    values:
+      - ./values/paperless.values.yaml
+  
+  # Minio - S3 compatible storage
+  - name: minio
+    namespace: minio-operator
+    chart: minio/operator
+    version: 6.0.0
+    values:
+      - ./values/minio.values.yaml
+  
+  - name: minio-tenant
+    namespace: minio-tenant
+    chart: minio/tenant
+    version: 6.0.0

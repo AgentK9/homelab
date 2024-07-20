@@ -1,0 +1,21 @@
+env:
+  PAPERLESS_ADMIN_USER: admin
+  PAPERLESS_ADMIN_PASSWORD: admin
+
+persistence:
+  consume:
+    accessMode: ReadWriteMany
+    size: 2Gi
+  export:
+    accessMode: ReadWriteMany
+    size: 1Gi
+  media:
+    accessMode: ReadWriteMany
+    size: 20Gi
+  data:
+    accessMode: ReadWriteMany
+    size: 1Gi
+postgresql:
+  enabled: true
+redis:
+  enabled: true  

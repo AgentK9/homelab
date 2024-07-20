@@ -1,5 +1,13 @@
+image:
+  tag: v1.109.2
+
+immich:
+  persistence:
+    library:
+      existingClaim: immich-pvc
+
 postgresql:
-  enabled: false
+  enabled: true
 
 redis:
-  enabled: false
+  enabled: true

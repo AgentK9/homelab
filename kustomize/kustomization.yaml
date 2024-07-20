@@ -6,6 +6,11 @@ labels:
       app.kubernetes.io/managed-by: Kustomize
 resources:
   - ./metallb/pool.yaml
-  - ./longhorn/traefik-config.yaml
-  - ./pihole/traefik-config.yaml
-  - ./homer/traefik-config.yaml
+  - ./longhorn/ingressroute.yaml
+  - ./pihole/ingressroute.yaml
+  - ./pihole/local-ingressroute.yaml
+  - ./homer/ingressroute.yaml
+  - ./immich/pvc.yaml
+  - ./immich/ingressroute.yaml
+  - ./paperless/ingressroute.yaml
+  - ./minio/ingressroute.yaml

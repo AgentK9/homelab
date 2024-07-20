@@ -1,13 +1,13 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: pihole-ingressroute
+  name: pihole-local-websecure-ingressroute
   namespace: pihole-system
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`pihole.kgb.birtdata.com`)
+    - match: PathPrefix(`/pihole`)
       kind: Rule
       services:
         - name: pihole-web
@@ -16,14 +16,25 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: pihole-web-ingressroute
+  name: pihole-local-web-ingressroute
   namespace: pihole-system
 spec:
   entryPoints:
     - web
+  middlewares:
   routes:
-    - match: Host(`pihole.kgb.birtdata.com`)
+    - match: PathPrefix(`/pihole`)
       kind: Rule
       services:
         - name: pihole-web
           port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-pihole-prefix
+  namespace: pihole-system
+spec:
+  stripPrefix:
+    prefixes:
+      - /pihole
