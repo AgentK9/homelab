@@ -17,7 +17,10 @@ repositories:
     url: https://djjudas21.github.io/charts/
   - name: minio
     url: https://operator.min.io
-
+  - name: authentik
+    url: https://charts.goauthentik.io
+  - name: jetstack
+    url: https://charts.jetstack.io
 ---
 releases:
   # Distributed storage
@@ -54,7 +57,7 @@ releases:
     chart: tailscale/tailscale-operator
     version: 1.68.1
     values:
-      - ./values/tailscale.values.yaml
+      - ./secrets/tailscale.yaml
 
   # Homer - homepage for all services
   - name: homer
@@ -94,3 +97,20 @@ releases:
     version: 6.0.0
     values:
       - ./values/minio-tenant.values.yaml
+  
+  # Authentik - SSO
+  - name: authentik
+    namespace: authentik
+    chart: authentik/authentik
+    version: 2024.6.1
+    values:
+      - ./values/authentik.yaml
+      - ./secrets/authentik.yaml
+  
+  # Cert-manager - SSL
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: 1.15.1
+    values:
+      - ./values/cert-manager.values.yaml

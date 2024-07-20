@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kgb-birtdata-com-traefik-tls
+  namespace: traefik
+spec:
+  secretName: traefik-tls
+  issuerRef:
+    name: cloudflare-issuer
+    kind: ClusterIssuer
+  commonName: "*.birtdata.com"
+  dnsNames:
+    - "*.birtdata.com"

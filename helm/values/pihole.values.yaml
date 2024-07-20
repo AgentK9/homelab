@@ -17,11 +17,13 @@ dnsmasq:
   customDnsEntries:
     - address=/kgb.birtdata.com/100.100.50.50
   customCnameEntries:
+    - cname=authentik.kgb.birtdata.com,kgb.birtdata.com
     - cname=pihole.kgb.birtdata.com,kgb.birtdata.com
     - cname=immich.kgb.birtdata.com,kgb.birtdata.com
     - cname=minio.kgb.birtdata.com,kgb.birtdata.com
     - cname=longhorn.kgb.birtdata.com,kgb.birtdata.com
     - cname=paperless.kgb.birtdata.com,kgb.birtdata.com
     - cname=casdoor.kgb.birtdata.com,kgb.birtdata.com
+    - cname=traefik.kgb.birtdata.com,kgb.birtdata.com
 
 replicaCount: 1

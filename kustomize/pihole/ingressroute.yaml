@@ -9,6 +9,9 @@ spec:
   routes:
     - match: Host(`pihole.kgb.birtdata.com`)
       kind: Rule
+      middlewares:
+        - name: authentik
+          namespace: authentik
       services:
         - name: pihole-web
           port: 443
@@ -22,8 +25,11 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`pihole.kgb.birtdata.com`) 
+    - match: Host(`pihole.kgb.birtdata.com`)
       kind: Rule
+      middlewares:
+        - name: authentik
+          namespace: authentik
       services:
         - name: pihole-web
           port: 80
