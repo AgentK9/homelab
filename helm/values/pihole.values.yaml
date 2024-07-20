@@ -2,7 +2,7 @@
 DNS1:
   192.168.50.1
 persistentVolumeClaim:
-  enabled: true
+  existingClaim: pihole
 serviceWeb:
   http:
     port: 80
@@ -10,4 +10,18 @@ serviceWeb:
     port: 443
 serviceDns:
   type: ClusterIP
+  annotations:
+    tailscale.com/expose: "true"
+
+dnsmasq:
+  customDnsEntries:
+    - address=/kgb.birtdata.com/100.100.50.50
+  customCnameEntries:
+    - cname=pihole.kgb.birtdata.com,kgb.birtdata.com
+    - cname=immich.kgb.birtdata.com,kgb.birtdata.com
+    - cname=minio.kgb.birtdata.com,kgb.birtdata.com
+    - cname=longhorn.kgb.birtdata.com,kgb.birtdata.com
+    - cname=paperless.kgb.birtdata.com,kgb.birtdata.com
+    - cname=casdoor.kgb.birtdata.com,kgb.birtdata.com
+
 replicaCount: 1

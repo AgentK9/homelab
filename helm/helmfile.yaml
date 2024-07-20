@@ -86,9 +86,11 @@ releases:
     chart: minio/operator
     version: 6.0.0
     values:
-      - ./values/minio.values.yaml
+      - ./values/minio-operator.values.yaml
   
   - name: minio-tenant
     namespace: minio-tenant
     chart: minio/tenant
     version: 6.0.0
+    values:
+      - ./values/minio-tenant.values.yaml

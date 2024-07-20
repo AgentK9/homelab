@@ -17,5 +17,9 @@ persistence:
     size: 1Gi
 postgresql:
   enabled: true
+  auth:
+    existingSecret: paperless-postgresql
 redis:
-  enabled: true  
+  enabled: true
+  auth:
+    existingSecret: paperless-redis

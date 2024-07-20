@@ -8,6 +8,8 @@ immich:
 
 postgresql:
   enabled: true
+  auth:
+    existingSecret: immich-postgresql
 
 redis:
   enabled: true

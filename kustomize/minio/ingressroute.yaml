@@ -11,4 +11,4 @@ spec:
       kind: Rule
       services:
         - name: minio
-          port: 443
+          port: 9000

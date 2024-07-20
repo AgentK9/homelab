@@ -8,7 +8,6 @@ resources:
   - ./metallb/pool.yaml
   - ./longhorn/ingressroute.yaml
   - ./pihole/ingressroute.yaml
-  - ./pihole/local-ingressroute.yaml
   - ./homer/ingressroute.yaml
   - ./immich/pvc.yaml
   - ./immich/ingressroute.yaml

@@ -9,6 +9,9 @@ spec:
   routes:
     - match: PathPrefix(`/pihole`)
       kind: Rule
+      middlewares:
+        - name: strip-pihole-prefix
+          namespace: pihole-system
       services:
         - name: pihole-web
           port: 443
@@ -21,10 +24,12 @@ metadata:
 spec:
   entryPoints:
     - web
-  middlewares:
   routes:
     - match: PathPrefix(`/pihole`)
       kind: Rule
+      middlewares:
+        - name: strip-pihole-prefix
+          namespace: pihole-system
       services:
         - name: pihole-web
           port: 80
