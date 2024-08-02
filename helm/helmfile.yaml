@@ -114,3 +114,11 @@ releases:
     version: 1.15.1
     values:
       - ./values/cert-manager.values.yaml
+
+hooks:
+  - events: ["prepare"]
+    command: "./scripts/compile-pkl.sh"
+  - events: ["cleanup"]
+    command: "./scripts/apply-pkl.sh"
+  - events: ["cleanup"]
+    command: "./scripts/cleanup-pkl.sh"

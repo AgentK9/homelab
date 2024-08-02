@@ -1,0 +1,25 @@
+typealias Annotations = Mapping<String, String>
+
+class Metadata {
+    name: String
+    namespace: String = "default"
+    annotations: Annotations = new Annotations {
+        ["app.kubernetes.io/managed-by"] = "Pkl"
+    }
+}
+
+abstract class K8sObject {
+    apiVersion: String = "v1"
+    kind: String
+    metadata: Metadata
+    spec: Dynamic?
+    type: String?
+}
+
+class PVC extends K8sObject {}
+
+class Secret extends K8sObject {
+    kind = "Secret"
+    type = "Opaque"
+    stringData: Mapping<String, String>
+}

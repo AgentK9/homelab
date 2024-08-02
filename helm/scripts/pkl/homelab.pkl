@@ -1,0 +1,43 @@
+import "./deploy_k8s.pkl"
+
+import "./ingressroute.pkl"
+import "./certificate.pkl"
+import "./immich.pkl"
+import "./secrets.pkl"
+import "./metallb.pkl"
+
+charts: Listing<String>
+
+local base_objects: Listing = new {
+    for (chart in charts) {
+        new ingressroute.IngressRoute {
+            metadata {
+                namespace = chart
+            }
+        }
+        new certificate.Certificate {
+            metadata {
+                namespace = chart
+            }
+        }
+    }
+    immich.pvc
+    secrets.cloudflare_secret
+    secrets.clusterissuer
+    metallb.pool
+    metallb.advertisement
+}
+
+objects = (base_objects) {
+    [[metadata.namespace == "homer" && (this is certificate.Certificate || this is ingressroute.IngressRoute)]] {
+        dnsPrefix = null
+    }
+    [[metadata.namespace == "pihole"]] {
+        metadata { namespace = "pihole-system" }
+    }
+    [[metadata.namespace == "longhorn"]] {
+        metadata { namespace = "longhorn-system"}
+    }
+}
+
+output = deploy_k8s.getK8sOutputs(objects)

@@ -1,0 +1,31 @@
+import "common.pkl"
+
+class ClusterIssuer extends common.K8sObject {
+  hidden in_email: String
+  apiVersion = "cert-manager.io/v1"
+  kind = "ClusterIssuer"
+  metadata {
+    name = "cloudflare-issuer"
+  }
+  spec {
+    acme = new {
+      email = in_email
+      server = "https://acme-staging-v02.api.letsencrypt.org/directory"
+      privateKeySecretRef = new {
+        name = "cloudflare-issuer-account-key"
+      }
+      solvers = new Listing {
+        new {
+          dns01 = new {
+            cloudflare = new {
+              apiTokenSecretRef = new {
+                name = "cloudflare-api-token-secret"
+                key = "api-token"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

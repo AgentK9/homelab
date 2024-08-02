@@ -1,0 +1,12 @@
+amends "./pkl/homelab.pkl"
+
+charts {
+  "homer"
+  "authentik"
+  "traefik"
+  "pihole"
+  "minio"
+  "immich"
+  "longhorn"
+  "paperless"
+}

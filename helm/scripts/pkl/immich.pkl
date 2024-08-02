@@ -1,0 +1,21 @@
+import "./common.pkl"
+
+
+
+pvc = new common.PVC {
+  apiVersion = "v1"
+  kind = "PersistentVolumeClaim"
+  metadata = new {
+    name = "immich-pvc"
+    namespace = "immich"
+  }
+  spec = new  {
+    accessModes = new { "ReadWriteMany" }
+    storageClassName = "longhorn"
+    resources = new {
+      requests = new {
+        storage = "20Gi"
+      }
+    }
+  }
+}

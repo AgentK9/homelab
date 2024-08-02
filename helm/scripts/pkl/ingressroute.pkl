@@ -1,0 +1,31 @@
+import "./common.pkl"
+
+class IngressRoute extends common.K8sObject {
+    hidden dnsPrefix: String? = metadata.namespace
+    apiVersion = "traefik.io/v1alpha1"
+    kind = "IngressRoute"
+    metadata = new {
+        annotations {
+            ["cert-manager.io/cluster-issuer"] = "cloudflare-issuer"
+        }
+        name = namespace + "-ingressroute"
+    }
+    spec = new {
+        entryPoints = new Listing {"websecure"}
+        routes = new Listing {
+            new {
+                match = "Host(`" + (dnsPrefix.ifNonNull((v) -> (v + ".")) ?? "") + "kgb.birtdata.com`) && PathPrefix(`/`)"
+                kind = "Rule"
+                services = new Listing {
+                    new {
+                        name = metadata.namespace
+                        port = 8080
+                    }
+                }
+            }
+        }
+        tls = new {
+            secretName = metadata.namespace + "-tls"
+        }
+    }
+}

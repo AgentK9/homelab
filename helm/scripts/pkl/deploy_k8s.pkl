@@ -1,0 +1,12 @@
+import "common.pkl"
+
+function getK8sOutputs(objects: Listing<common.K8sObject>): ModuleOutput = new {
+  files {
+    for (obj in objects) {
+      [obj.metadata.namespace + "/" + obj.kind.toLowerCase() + ".yaml"] {
+        value = obj
+        renderer = new YamlRenderer {}
+      }
+    }
+  }
+}

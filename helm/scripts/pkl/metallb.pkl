@@ -1,0 +1,38 @@
+import "common.pkl"
+
+class IPAddressPool extends common.K8sObject {
+  apiVersion = "metallb.io/v1beta1"
+  kind = "IPAddressPool"
+  metadata {
+    name = "pool"
+    namespace = "metallb-system"
+  }
+  spec {
+    addresses = new Listing {
+    }
+  }
+}
+
+class L2Advertisement extends common.K8sObject {
+  apiVersion = "metallb.io/v1beta1"
+  kind = "L2Advertisement"
+  metadata {
+    name = "pool"
+    namespace = "metallb-system"
+  }
+  spec {
+    ipAddressPools = new Listing {
+      "pool"
+    }
+  }
+}
+
+pool = new IPAddressPool {
+  spec {
+    addresses {
+      "192.168.50.64/26"
+    }
+  }
+}
+
+advertisement = new L2Advertisement {}

@@ -1,0 +1,18 @@
+import "./common.pkl"
+
+class Certificate extends common.K8sObject {
+    hidden dnsPrefix = metadata.namespace
+    apiVersion = "cert-manager.io/v1"
+    kind = "Certificate"
+    metadata {
+        name = "kgb-birtdata-com-" + spec.secretName
+    }
+    spec = new {
+        secretName = metadata.namespace + "-tls"
+        issuerRef = new {
+            name = "cloudflare-issuer"
+            kind = "ClusterIssuer"
+        }
+        dnsNames = new Listing { (dnsPrefix.ifNonNull((v) -> (v + ".")) ?? "") + "kgb.birtdata.com" }
+    }
+}
