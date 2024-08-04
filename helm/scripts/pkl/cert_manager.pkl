@@ -10,7 +10,7 @@ class ClusterIssuer extends common.K8sObject {
   spec {
     acme = new {
       email = in_email
-      server = "https://acme-staging-v02.api.letsencrypt.org/directory"
+      server = "https://acme-v02.api.letsencrypt.org/directory"
       privateKeySecretRef = new {
         name = "cloudflare-issuer-account-key"
       }

@@ -1,7 +1,9 @@
 import "./common.pkl"
 
 class IngressRoute extends common.K8sObject {
-    hidden dnsPrefix: String? = metadata.namespace
+    hidden dnsPrefix: String?
+    hidden svc_port: Int
+    hidden svc_name: String
     apiVersion = "traefik.io/v1alpha1"
     kind = "IngressRoute"
     metadata = new {
@@ -18,8 +20,8 @@ class IngressRoute extends common.K8sObject {
                 kind = "Rule"
                 services = new Listing {
                     new {
-                        name = metadata.namespace
-                        port = 8080
+                        name = svc_name
+                        port = svc_port
                     }
                 }
             }

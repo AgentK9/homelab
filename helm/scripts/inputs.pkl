@@ -1,12 +1,44 @@
 amends "./pkl/homelab.pkl"
 
 charts {
-  "homer"
-  "authentik"
-  "traefik"
-  "pihole"
-  "minio"
-  "immich"
-  "longhorn"
-  "paperless"
+  new {
+    name = "homer"
+    port = 8080
+  }
+  new {
+    name = "authentik"
+    service_name = "authentik-server"
+    port = 443
+  }
+  new {
+    name = "traefik"
+    port = 443
+  }
+  new {
+    name = "pihole"
+    namespace = "pihole-system"
+    service_name = "pihole-web"
+    port = 80
+  }
+  new {
+    name = "minio"
+    namespace = "minio-tenant"
+    port = 443
+  }
+  new {
+    name = "immich"
+    service_name = "immich-server"
+    port = 3001
+  }
+  new {
+    name = "longhorn"
+    namespace = "longhorn-system"
+    service_name = "longhorn-frontend"
+    port = 80
+  }
+  new {
+    name = "paperless"
+    service_name = "paperless-paperless-ngx"
+    port = 8000
+  }
 }

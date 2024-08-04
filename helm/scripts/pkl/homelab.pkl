@@ -6,18 +6,30 @@ import "./immich.pkl"
 import "./secrets.pkl"
 import "./metallb.pkl"
 
-charts: Listing<String>
+class InputChart {
+    name: String
+    namespace: String = name
+    service_name: String = name
+    port: Int
+}
+
+
+charts: Listing<InputChart>
 
 local base_objects: Listing = new {
     for (chart in charts) {
         new ingressroute.IngressRoute {
+            dnsPrefix = chart.name
+            svc_port = chart.port
+            svc_name = chart.service_name
             metadata {
-                namespace = chart
+                namespace = chart.namespace
             }
         }
         new certificate.Certificate {
+            dnsPrefix = chart.name
             metadata {
-                namespace = chart
+                namespace = chart.namespace
             }
         }
     }
@@ -31,12 +43,6 @@ local base_objects: Listing = new {
 objects = (base_objects) {
     [[metadata.namespace == "homer" && (this is certificate.Certificate || this is ingressroute.IngressRoute)]] {
         dnsPrefix = null
-    }
-    [[metadata.namespace == "pihole"]] {
-        metadata { namespace = "pihole-system" }
-    }
-    [[metadata.namespace == "longhorn"]] {
-        metadata { namespace = "longhorn-system"}
     }
 }
 

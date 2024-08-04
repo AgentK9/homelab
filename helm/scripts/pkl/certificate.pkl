@@ -1,7 +1,7 @@
 import "./common.pkl"
 
 class Certificate extends common.K8sObject {
-    hidden dnsPrefix = metadata.namespace
+    hidden dnsPrefix: String?
     apiVersion = "cert-manager.io/v1"
     kind = "Certificate"
     metadata {
